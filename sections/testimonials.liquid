@@ -36,7 +36,10 @@
               {%- if block.settings.icon == 'quote' -%}
                 <span class="quote-icon"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-quote" viewBox="0 0 41 35"><path d="M10.208 17.711h6.124v16.332H0V21.684C0 8.184 5.444.956 16.332 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766zm24.498 0h6.124v16.332H24.498V21.684C24.498 8.184 29.942.956 40.83 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766z" fill="#000" fill-rule="evenodd"/></svg></span>
               {%- elsif block.settings.icon == '5-stars' -%}
-                <span class="testimonial-stars">★★★★★</span>
+                {% comment %} code added - am. trustpilot stars {% endcomment %}
+                <!-- <span class="testimonial-stars">★★★★★</span> -->
+                <img style="width: 100px;" src="https://cdn.trustpilot.net/brand-assets/4.1.0/stars/stars-5.svg">
+              	<br><br>
               {%- elsif block.settings.icon == '4-stars' -%}
                 <span class="testimonial-stars">★★★★</span>
               {%- elsif block.settings.icon == '3-stars' -%}
@@ -80,6 +83,21 @@
       </div>
     </div>
   {%- endif -%}
+
+  {% comment %} code added - am. link to trustpilot added {% endcomment %}
+  <br><br>
+  <div class="page-width">
+    <div class="section-header">
+      <h2>SIEHE MEHR BEWERTUNGEN AUF TRUSTPILOT</h2>
+    </div>
+    <div>
+      <a href="https://www.trustpilot.com/review/beyondknots.de" target="_blank">
+        <img style="width: 250px;" alt="trustpilot reviews beyondknots"
+        src="https://cdn.shopify.com/s/files/1/0263/8240/1591/files/trustpilot-reviews-beyondknots.png?v=1635904910">
+      </a>
+    </div>
+  </div>
+
 </div>
 
 {% schema %}

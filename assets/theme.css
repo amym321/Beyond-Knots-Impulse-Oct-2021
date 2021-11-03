@@ -11293,3 +11293,23 @@ html[dir=rtl] .product-single__meta .rte{
     color:#58686f;
   }
 }
+
+/************************************************/
+/******** added code - am / storetasker *********/
+/************************************************/
+.hero__text-wrap,
+.slideshow__slide--slideshow-0 .hero__title,
+.slideshow__slide--slideshow-1 .hero__title { 
+  /* color:  #981b1e;  */
+  font-weight: 900;
+}
+
+  
+.hero__subtitle { 
+  font-size: 2em; 
+}
+  
+/* Promo grid margin for collection boxes */
+.promo-grid__container--framed:not(.promo-grid__container--boxed) .promo-grid__content {
+  margin: 0em;
+}
