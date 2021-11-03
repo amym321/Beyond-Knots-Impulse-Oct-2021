@@ -40,7 +40,8 @@
           <div class="page-width">
             <header class="section-header section-header--hero">
               <div class="section-header__shadow">
-                {%- render 'breadcrumbs' -%}
+                {% comment %} code added - am. remove breadcrumb on collection pages {% endcomment%}
+                {% comment %} render 'breadcrumbs' {% endcomment%}
                 <h1 class="section-header__title">
                   {{ collection.title }}
                 </h1>

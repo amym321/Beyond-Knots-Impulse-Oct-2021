@@ -25,7 +25,8 @@
       <div class="page-width">
         <header class="section-header section-header--hero">
           <div class="section-header__shadow">
-            {%- render 'breadcrumbs' -%}
+            {% comment %} code added - am. remove breadcrumb on collection pages {% endcomment%}
+            {% comment %} render 'breadcrumbs' {% endcomment%}
             {%- if section.settings.blog_show_date or article.tags.size > 0 or articles.comments_count > 0 -%}
               <div class="article__date">
                 {%- if section.settings.blog_show_tags and article.tags.size > 0 -%}

@@ -3,7 +3,8 @@
 <div data-section-id="{{ section.id }}" data-section-type="blog">
   <div class="page-width page-content">
 
-    {%- render 'breadcrumbs' -%}
+    {% comment %} code added - am. remove breadcrumb on collection pages {% endcomment%}
+    {% comment %} render 'breadcrumbs' {% endcomment%}
 
     <header class="section-header{% if section.settings.blog_show_tag_filter and blog.tags.size > 0 %}{% unless settings.type_headers_align_text %} section-header--with-link{% endunless %}{% endif %}">
       <h1 class="section-header__title">
