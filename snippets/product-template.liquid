@@ -214,6 +214,12 @@
                           {%- if shop.taxes_included -%}
                             {{ 'products.product.include_taxes' | t }}
                           {%- endif -%}
+
+                          <p style="font-size: var(--typeBaseSize);">
+                            ✔️ Schnelle Lieferung: 2-3 Werktage<br>
+                            ✔️ Kostenloser Versand innerhalb Deutschlands<br>
+                            ✔️ 2 Wochen Rückgaberecht</p>
+
                           {%- if shop.shipping_policy.body != blank -%}
                             {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
                           {%- endif -%}
