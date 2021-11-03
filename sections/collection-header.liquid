@@ -55,7 +55,8 @@
     {%- assign disable_sticky_header = true -%}
     <div class="page-width page-content page-content--top">
       <header class="section-header section-header--flush">
-        {%- render 'breadcrumbs' -%}
+        {% comment %} code added - am. remove breadcrumb on collection pages {% endcomment%}
+        {% comment %} render 'breadcrumbs' {% endcomment%}
         <h1 class="section-header__title">
           {{ collection.title }}
         </h1>

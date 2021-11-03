@@ -20,7 +20,8 @@
 
 <div class="page-width page-content">
 
-  {%- render 'breadcrumbs' -%}
+  {% comment %} code added - am. remove breadcrumb on collection pages {% endcomment%}
+  {% comment %} render 'breadcrumbs' {% endcomment%}
 
   {%- if section.settings.title_enable -%}
     <header class="section-header">
