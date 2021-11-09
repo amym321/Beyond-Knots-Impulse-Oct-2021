@@ -1,108 +1,72 @@
-{%- comment -%} Check if template is collection or search page  {%- endcomment -%}
-{%- assign boost_pfs_is_initfilter = false -%}
-{%- if request.page_type == 'collection' or request.page_type == 'search' -%}
-  {%- unless template contains 'boost-pfs-original' or boost_pfs_is_not_initfilter -%}
-    {%- assign boost_pfs_is_initfilter = true -%}
-  {%- endunless -%}
-{%- endif -%}
+{%- capture boost_pfs_layout -%}
+{%- case layout -%}
 
-<script>
-  /* Declare bcSfFilterConfig variable */
-  var boostPFSAppConfig = {
-    api: {
-      filterUrl: 'https://services.mybcapps.com/bc-sf-filter/filter',
-      searchUrl: 'https://services.mybcapps.com/bc-sf-filter/search',
-      suggestionUrl: 'https://services.mybcapps.com/bc-sf-filter/search/suggest',
-      productsUrl: 'https://services.mybcapps.com/bc-sf-filter/search/products',
-      analyticsUrl: 'https://lambda.mybcapps.com/e'
-    },
-    shop: {
-      name: '{{ shop.name | escape }}',
-      url: '{{ shop.url }}',
-      domain: '{{ shop.permanent_domain }}',
-      currency: '{{ shop.currency }}',
-      money_format: {{ shop.money_format | replace: "'", '"' | replace: "$", "&#36;" | json }},
-      money_format_with_currency: {{ shop.money_with_currency_format | replace: "'", '"' | replace: "$", "&#36;"  | json }}
-    },
-    general: {
-      file_url: "{{ '' | file_url }}",
-      asset_url: "{{ 'boost-pfs.js' | asset_url }}",
-      collection_id: {{ collection.id | default: 0 }},
-      collection_handle: "{{ collection.handle }}",
-      collection_product_count: {{ collection.all_products_count | default: 0 }},
-      {% if template contains 'collection' and collection.handle %}
-      collection_count: {{ collection.products_count  }},
-      {% endif %}
-      {% if request.page_type == 'product' %}
-      product_id: {{ product.id | default: 0 }},
-      {% endif %}
-      theme_id: {{ theme.id | default: 0 }},
-      collection_tags: {{ current_tags | json }},
-      current_tags: {{ current_tags | json }},
-      default_sort_by: "{{ collection.default_sort_by }}",
-      swatch_extension: "png",
-      no_image_url: "{{ 'boost-pfs-no-image.gif' | asset_url }}",
-      search_term: "{{ search.terms | default: '' | url_encode }}",
-      template: "{{ template }}",
-      {%- comment -%} Get currencies {%- endcomment -%}
-      currencies: [
-        {%- for currency in shop.enabled_currencies -%}
-        {{- currency.iso_code | json -}}{%- if forloop.last != true -%},{%- endif -%}
-        {%- endfor -%}
-      ],
-      current_currency: {{- cart.currency.iso_code | json -}},
-      {%- comment -%} Get locales {%- endcomment -%}
-      published_locales: {
-        {%- for locale in shop.published_locales -%}
-        {{- locale.iso_code | json -}}:{{- locale.primary | json -}}{%- if forloop.last != true -%},{%- endif -%}
-        {%- endfor -%}
-      },
-      current_locale: {{- request.locale.iso_code | json -}},
-      isInitFilter: {{- boost_pfs_is_initfilter | json -}}
-    },
-    {% if shop.metafields.bc-sf-filter.settings != blank %}
-    settings: {{ shop.metafields.bc-sf-filter.settings | strip_html }},
-    {% endif %}
-    {% if shop.metafields.pfs-swatch-settings != blank %}
-    swatch_settings: {{ shop.metafields.pfs-swatch-settings | json | strip_html }},
-    {% endif %}
-    {% if shop.metafields.boostpfs-settings.default-sort-order != blank %}
-    default_sort_order: {{ shop.metafields.boostpfs-settings.default-sort-order | json | strip_html }},
-    {% endif %}
-  };
-  function mergeObject(obj1, obj2){
-    var obj3 = {};
-    for (var attr in obj1) { obj3[attr] = obj1[attr]; }
-    for (var attr in obj2) { obj3[attr] = obj2[attr]; }
-    return obj3;
-  }
-  if (typeof boostPFSConfig == 'undefined') {
-    boostPFSConfig = {};
-  }
-  if (typeof boostPFSAppConfig != 'undefined') {
-    boostPFSConfig = mergeObject(boostPFSConfig, boostPFSAppConfig);
-  }
-  if (typeof boostPFSThemeConfig != 'undefined') {
-    boostPFSConfig = mergeObject(boostPFSConfig, boostPFSThemeConfig);
-  }
-</script>
+{%- when 'productGridItemHtml' -%}
+{% raw %}
+	<div data-product-handle={{itemHandle}} data-product-id="{{itemId}}" id="{{itemHandle}}" class="grid__item grid-product {{grid_item_width}} {{itemQuickShopClass}}" data-aos="row-of-{{products_per_row}}">
+		<div class="grid-product__content">
+			{{itemLabel}}
+			<a href="{{itemUrl}}" class="grid-product__link {{itemSoldOutClass}}">
+				<div class="grid-product__image-mask">
+					{{itemQuickShopButton}}
+					{{itemImages}}
+					{{itemSwatchHoverImages}}
+				</div>
+				<div class="grid-product__meta">
+					<div class="grid-product__title">{{itemTitle}}</div>
+					{{itemVendor}}
+					<div class="grid-product__price">{{itemPrice}}</div>
+					{{itemReviews}}
+				</div>
+			</a>
+		</div>
+		{{itemSwatch}}
+	</div>
+{% endraw %}
 
-<!-- Include Resources -->
-{%- if boost_pfs_is_initfilter == true -%}
-  <script defer src="{{ 'boost-pfs-vendor.js' | asset_url }}"></script>
-  <script defer src="{{ 'boost-pfs-core.js' | asset_url }}"></script>
-  <script defer src="{{ 'boost-pfs-filter.js' | asset_url }}"></script>
-  <script defer src="{{ 'boost-pfs-instant-search.js' | asset_url }}"></script>
-{%- else -%}
-  <script defer src="{{ 'boost-pfs-core-instant-search.js' | asset_url }}"></script>
-  <script defer src="{{ 'boost-pfs-instant-search.js' | asset_url }}"></script>
-{%- endif -%}
+{%- when 'previousActiveHtml' -%}
+<span class="prev">
+	<a href="[[itemUrl]]" title="">
+		<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-chevron-left" viewBox="0 0 284.49 498.98"><defs><style>.cls-1{fill:#231f20}</style></defs><path class="cls-1" d="M249.49 0a35 35 0 0 1 24.75 59.75L84.49 249.49l189.75 189.74a35.002 35.002 0 1 1-49.5 49.5L10.25 274.24a35 35 0 0 1 0-49.5L224.74 10.25A34.89 34.89 0 0 1 249.49 0z"></path></svg>
+		<span class="icon__fallback-text">Previous</span>
+	</a>
+</span>
 
-<!-- Initialize App -->
-<script defer src="{{ 'boost-pfs-init.js' | asset_url }}"></script>
+{%- when 'previousDisabledHtml' -%}
 
-{% capture boost_pfs_search_no_result_content %}{% render  "boost-pfs-instant-search-no-result-json" %}{% endcapture %}
-{% unless boost_pfs_search_no_result_content contains "Liquid error" %}
-  <!-- Instant search no result JSON data -->
-  {% render  "boost-pfs-instant-search-no-result-json" %}
-{% endunless %}
+
+{%- when 'nextActiveHtml' -%}
+<span class="next">
+	<a href="[[itemUrl]]" title="">
+		<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-chevron-right" viewBox="0 0 284.49 498.98"><defs><style>.cls-1{fill:#231f20}</style></defs><path class="cls-1" d="M35 498.98a35 35 0 0 1-24.75-59.75l189.74-189.74L10.25 59.75a35.002 35.002 0 0 1 49.5-49.5l214.49 214.49a35 35 0 0 1 0 49.5L59.75 488.73A34.89 34.89 0 0 1 35 498.98z"></path></svg>
+		<span class="icon__fallback-text">Next</span>
+	</a>
+</span>
+
+
+{%- when 'nextDisabledHtml' -%}
+
+{%- when 'pageItemHtml' -%}
+<span class="page">
+	<a href="[[itemUrl]]" title="">[[itemTitle]]</a>
+</span>
+
+{%- when 'pageItemSelectedHtml' -%}
+<span class="page current">[[itemTitle]]</span>
+
+{%- when 'pageItemRemainHtml' -%}
+<span class="deco">...</span>
+
+{%- when 'paginateHtml' -%}
+[[previous]][[pageItems]][[next]]
+
+
+{%- when 'sortingHtml' -%}
+<label for="boost-pfs-filter-top-sorting-select" class="hidden-label">{{ 'collections.sorting.title' | t }}</label>
+<select class="boost-pfs-filter-top-sorting-select">[[sortingItems]]</select>
+
+{%- endcase -%}
+
+{%-  endcapture -%}
+{%- assign str = '}}' -%}
+{{- boost_pfs_layout | json | replace: '[[', '{{' | replace: ']]', str -}}
