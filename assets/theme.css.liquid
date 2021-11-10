@@ -11305,7 +11305,6 @@ html[dir=rtl] .product-single__meta .rte{
   /* color:  #981b1e;  */
   font-weight: 900;
 }
-
   
 .hero__subtitle { 
   font-size: 2em; 
@@ -11328,9 +11327,12 @@ button .hero__slide-link {
 }
 
 /* more width on Logos with price buttons */
+.logo-bar__item {
+  flex: 0 1 130px;
+}
 @media only screen and (min-width: 769px) {
   .logo-bar__item {
-    flex: 0 1 200px;
+    flex: 0 1 225px;
   }
 }
 
@@ -11348,8 +11350,9 @@ button .hero__slide-link {
 }
 
 /* Collection page padding */
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 1026px) {
   .collection-content .page-width {
-    padding: 0 200px;
+    padding: 0 200px !important;
   }
 }
+

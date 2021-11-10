@@ -156,7 +156,7 @@
                     {%- if customer -%}
                       {{ 'layout.customer.account' | t }}
                     {%- else -%}
-                      {{ 'layout.customer.log_in' | t }}
+                      {{ 'layout.customer.log_in' | t | capitalize }}
                     {%- endif -%}
                   </a>
                 </div>
