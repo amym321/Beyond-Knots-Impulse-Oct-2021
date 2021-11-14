@@ -133,7 +133,7 @@ var numberQuickViewModalLoaded = 0;
         itemLabelHtml = '<div class="grid-product__tag grid-product__tag--sold-out">' + boostPFSConfig.label.sold_out + '</div>';
       } else if (onSale) {
         var discount = Math.ceil((data.compare_at_price_min - data.price_min) * 100 / data.compare_at_price_min);
-        itemLabelHtml = '<div class="grid-product__tag grid-product__tag--sale">-' + discount + '%</div>';
+        itemLabelHtml = '<div class="grid-product__tag grid-product__tag--sale"><div class="hex">-' + discount + '%</div></div>';
       }
     }
     itemHtml = itemHtml.replace(/{{itemLabel}}/g, itemLabelHtml);
@@ -211,6 +211,7 @@ var numberQuickViewModalLoaded = 0;
     
     if (lengthCount > 1 || widthCount > 1) itemMeasuresHtml += 'verschiedene Größen';
     else if (length != '' && width != '') itemMeasuresHtml += length + ' x ' + width;
+    itemMeasuresHtml = '<div class="boost-pfs-filter-measure-info">' + itemMeasuresHtml + '</div>';
     itemHtml = itemHtml.replace(/{{itemMeasures}}/g, itemMeasuresHtml);
 
     // Add main attribute (Always put at the end of this function)
