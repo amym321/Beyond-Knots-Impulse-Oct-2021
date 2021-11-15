@@ -11294,65 +11294,82 @@ html[dir=rtl] .product-single__meta .rte{
   }
 }
 
+  
 /************************************************/
 /******** added code - am / storetasker *********/
 /************************************************/
-
+  
 /* Hero font */
 .hero__text-wrap,
 .slideshow__slide--slideshow-0 .hero__title,
 .slideshow__slide--slideshow-1 .hero__title { 
-  /* color:  #981b1e;  */
-  font-weight: 900;
+  /* color:  #981b1e;  */  
+  font-weight: 900 !important;
 }
   
 .hero__subtitle { 
   font-size: 2em; 
 }
-
+  
 /* hero button font */
 body .hero__slide-link,
 button .hero__slide-link {
   font-size: calc(var(--typeBaseSize)*1.25) !important;
 }
-
-@media only screen and (min-width: 769px)
-.faux-select, body, button, input, select, textarea {
-    font-size: var(--typeBaseSize);
-}
   
 /* Promo grid margin for collection boxes */
-.promo-grid__container--framed:not(.promo-grid__container--boxed) .promo-grid__content {
-  margin: 0em;
+.promo-grid__container--framed:not(.promo-grid__container--boxed) .promo-grid__content {  
+  margin: 0em; 
 }
-
+  
 /* more width on Logos with price buttons */
 .logo-bar__item {
   flex: 0 1 130px;
 }
 @media only screen and (min-width: 769px) {
   .logo-bar__item {
-    flex: 0 1 225px;
+    flex: 0 1 220px;
   }
 }
-
+  
 /* compare at price in red */
 .on-sale {
   color: #C20000;
   font-weight: bold;
 }
-
+  
 /* collection page - more image spacing */
 @media only screen and (min-width: 769px) {
   .collection-grid__wrapper .grid__item {
     padding-left: 60px;
   }
 }
-
+  
 /* Collection page padding */
 @media only screen and (min-width: 1026px) {
   .collection-content .page-width {
-    padding: 0 200px !important;
+    padding: 0 100px !important;
   }
 }
+  
+/* secondary button */
+.btn--secondary, .rte .btn--secondary {
+  color: #000;
+  border-color: #CAAF75;
+  background-color: #CAAF75;
+}
+  
+/* collection page product title italics */
+.grid-product__title {
+  font-style: italic;
+}
 
+/* Announcement - phone # in white */
+.announcement-link, .announcement-link:active,.announcement-link:hover,
+.announcement-link[x-apple-data-detectors],
+.announcement-link a {
+  color:{{ settings.color_announcement_text | default: "#fff" }} !important;
+}
+.announcement-text a{
+  color:{{ settings.color_announcement_text | default: "#fff" }} !important;
+}
